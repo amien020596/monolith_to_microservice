@@ -1,56 +1,48 @@
 version: '3.7'
-services: 
-  
+services:
+  frontend:
+    image: antoniopapa1991/admin-frontend
+    ports:
+      - 8080:80
+    depends_on:
+      - backend
+    networks:
+      - app
+
   backend:
     container_name: admin_api
     build:
       context: .
       dockerfile: Dockerfile
-    environment: 
-      DB_HOST: database
+    environment:
+      DB_HOST: db
       DB_DATABASE: admin
       DB_USERNAME: root
       DB_PASSWORD: root
     ports:
-      - 8011:8000
-    volumes: 
+      - 8000:8000
+    volumes:
       - .:/app
-    depends_on: 
-      - database
-    networks: 
+    depends_on:
+      - db
+    networks:
       - app
-      
-  database:
+
+  db:
     container_name: admin_db
     image: mysql:5.7.22
-    environment: 
+    restart: always
+    environment:
       MYSQL_DATABASE: admin
       MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
-    volumes: 
+    volumes:
       - .dbdata:/var/lib/mysql
     ports:
-      - 3012:3306
-    networks: 
-      - app
-  composer:
-    build:
-      context: .
-      dockerfile: composer.Dockerfile
-    volumes:
-      - .:/app
-    networks: 
+      - 33066:3306
+    networks:
       - app
 
-  
-  artisan:
-    build: 
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - .:/app
-    entrypoint: ["php","/app/artisan"]
-
-networks: 
+networks:
   app:
