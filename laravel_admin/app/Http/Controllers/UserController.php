@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,9 +20,9 @@ class UserController extends Controller
         return User::find($id);
     }
 
-    public function store(Request $request)
+    public function store(UserCreateRequest $request)
     {
-        $user = User::create($request->all());
+        $user = User::create($request->only(['first_name', 'last_name', 'password', 'email']));
         return response($user, Response::HTTP_CREATED);
     }
 
@@ -30,10 +32,10 @@ class UserController extends Controller
         return response(null, Response::HTTP_NO_CONTENT);
     }
 
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
         $user = User::find($id);
-        $user->update($request->all());
+        $user->update($request->only(['first_name', 'last_name', 'password', 'email']));
         return response($user, Response::HTTP_ACCEPTED);
     }
 }
