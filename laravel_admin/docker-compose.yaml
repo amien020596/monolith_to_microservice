@@ -1,0 +1,56 @@
+version: '3.7'
+services: 
+  
+  backend:
+    container_name: admin_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment: 
+      DB_HOST: database
+      DB_DATABASE: admin
+      DB_USERNAME: root
+      DB_PASSWORD: root
+    ports:
+      - 8011:8000
+    volumes: 
+      - .:/app
+    depends_on: 
+      - database
+    networks: 
+      - app
+      
+  database:
+    container_name: admin_db
+    image: mysql:5.7.22
+    environment: 
+      MYSQL_DATABASE: admin
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes: 
+      - .dbdata:/var/lib/mysql
+    ports:
+      - 3012:3306
+    networks: 
+      - app
+  composer:
+    build:
+      context: .
+      dockerfile: composer.Dockerfile
+    volumes:
+      - .:/app
+    networks: 
+      - app
+
+  
+  artisan:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    entrypoint: ["php","/app/artisan"]
+
+networks: 
+  app:
