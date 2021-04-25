@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -57,6 +58,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password'
     ];
+    public function role()
+    {
+        return $this->BelongsTo(Role::class);
+    }
 
     public function setPasswordAttribute($value)
     {

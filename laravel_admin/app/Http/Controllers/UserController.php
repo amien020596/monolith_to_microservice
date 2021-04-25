@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateInfoRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Http\Resources\UserResource;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -15,17 +16,19 @@ class UserController extends Controller
 {
     public function index()
     {
-        return User::paginate();
+        $users = User::with('role')->paginate();
+        return UserResource::collection($users);
     }
 
     public function show($id)
     {
-        return User::find($id);
+        $user = User::with('role')->find($id);
+        return new UserResource($user);
     }
 
     public function store(UserCreateRequest $request)
     {
-        $user = User::create($request->only(['first_name', 'last_name', 'password', 'email']));
+        $user = User::create($request->only(['first_name', 'last_name', 'password', 'email', 'role_id']));
         return response($user, Response::HTTP_CREATED);
     }
 
@@ -38,7 +41,7 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, $id)
     {
         $user = User::find($id);
-        $user->update($request->only(['first_name', 'last_name', 'password', 'email']));
+        $user->update($request->only(['first_name', 'last_name', 'password', 'email', 'role_id']));
         return response($user, Response::HTTP_ACCEPTED);
     }
     public function user()
