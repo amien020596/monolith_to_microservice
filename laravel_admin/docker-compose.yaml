@@ -5,11 +5,11 @@ services:
     ports:
       - 8080:80
     depends_on:
-      - backend
+      - server
     networks:
       - app
 
-  backend:
+  server:
     container_name: admin_api
     build:
       context: .
@@ -19,7 +19,9 @@ services:
       DB_DATABASE: admin
       DB_USERNAME: root
       DB_PASSWORD: root
-    ports:
+      APP_URL: "http://localhost:8011"
+    restart: always
+    ports:     
       - 8011:8000
     volumes: 
       - .:/app
