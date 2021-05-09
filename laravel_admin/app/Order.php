@@ -6,8 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    public function orderItem()
+    public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->orderItems->sum(function (OrderItem $item) {
+            return $item->price * $item->quantity;
+        });
     }
 }
