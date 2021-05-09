@@ -22,14 +22,10 @@ Route::group(['middleware' => 'auth:api'], function () {
   Route::put('users/info', 'UserController@updateInfo');
   Route::put('users/password', 'UserController@updatePassword');
 
-  Route::get('product', 'ProductController@index');
-  Route::get('product/{id}', 'ProductController@show');
-  Route::post('product', 'ProductController@store');
-  Route::put('product/{id}', 'ProductController@update');
-  Route::delete('product/{id}', 'ProductController@destroy');
-
   Route::post('upload', 'ImageUploadController@upload');
 
   Route::apiResource('users', 'UserController');
+  Route::apiResource('product', 'ProductController');
+  Route::apiResource('orders', 'OrderController')->only('index', 'show');
   Route::apiResource('roles', 'RoleController');
 });
