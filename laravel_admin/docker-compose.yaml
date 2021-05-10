@@ -40,6 +40,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes: 
       - .dbdata:/var/lib/mysql
+    restart: always
     ports:
       - 3012:3306
     networks: 
