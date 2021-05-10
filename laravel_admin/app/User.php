@@ -72,4 +72,9 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($value);
     }
+
+    public function hasAccess($access)
+    {
+        return  $this->permissions()->contains($access);
+    }
 }
