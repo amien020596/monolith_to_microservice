@@ -8,9 +8,10 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\User;
-use Auth;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -44,22 +45,30 @@ class UserController extends Controller
         $user->update($request->only(['first_name', 'last_name', 'password', 'email', 'role_id']));
         return response($user, Response::HTTP_ACCEPTED);
     }
+
     public function user()
     {
-        return Auth::user();
+        $user = Auth::user();
+        return (new UserResource($user))->additional([
+            'data' => [
+                'permissions' => $user->permissions()
+            ]
+        ]);
     }
+
     public function updateInfo(UpdateInfoRequest $request)
     {
         $user = Auth::user();
         $user->update($request->only('first_name', 'last_name', 'email'));
-        return response($user, Response::HTTP_ACCEPTED);
+        return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
+
     public function updatePassword(UpdatePasswordRequest $request)
     {
         $user = Auth::user();
         $user->update([
             'password' => $request->input('password')
         ]);
-        return response($user, Response::HTTP_ACCEPTED);
+        return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 }

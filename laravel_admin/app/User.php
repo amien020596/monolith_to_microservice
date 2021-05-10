@@ -60,7 +60,12 @@ class User extends Authenticatable
     ];
     public function role()
     {
-        return $this->BelongsTo(Role::class);
+        return $this->belongsTo(Role::class);
+    }
+
+    public function permissions()
+    {
+        return $this->role->permissions->pluck('name');
     }
 
     public function setPasswordAttribute($value)
