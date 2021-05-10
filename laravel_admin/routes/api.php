@@ -29,4 +29,5 @@ Route::group(['middleware' => 'auth:api'], function () {
   Route::apiResource('product', 'ProductController');
   Route::apiResource('orders', 'OrderController')->only('index', 'show');
   Route::apiResource('roles', 'RoleController');
+  Route::apiResource('permissions', 'PermissionController')->only('index');
 });
