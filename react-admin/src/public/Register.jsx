@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react'
 import './Public.css';
 
@@ -8,15 +9,16 @@ export default class Register extends Component {
   password = '';
   password_confirm = '';
 
-  handleSubmitForm = (e) => {
+  handleSubmitForm = async (e) => {
     e.preventDefault();
-    console.log({
+    const response = await axios.post('http://localhost:8000/api/register', {
       'first_name': this.first_name,
       'last_name': this.last_name,
       'email': this.email,
       'password': this.password,
       'password_confirm': this.password_confirm
     })
+    console.log("response")
   }
   render() {
     return (
