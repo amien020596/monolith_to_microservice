@@ -1,24 +1,23 @@
 import axios from 'axios';
-import React, { Component } from 'react'
+import React, { Component, SyntheticEvent } from 'react'
 import { Redirect } from 'react-router';
 import './Public.css';
 
 export default class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.first_name = '';
-    this.last_name = '';
-    this.email = '';
-    this.password = '';
-    this.password_confirm = '';
-    this.state = {
-      redirect: false
-    }
+
+  first_name = '';
+  last_name = '';
+  email = '';
+  password = '';
+  password_confirm = '';
+  state = {
+    redirect: false
   }
 
-  handleSubmitForm = async (e) => {
+
+  handleSubmitForm = async (e: SyntheticEvent) => {
     e.preventDefault();
-    await axios.post('http://192.168.100.9:8011/api/register', {
+    await axios.post('register', {
       'first_name': this.first_name,
       'last_name': this.last_name,
       'email': this.email,

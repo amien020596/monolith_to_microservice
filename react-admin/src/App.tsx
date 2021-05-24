@@ -5,8 +5,12 @@ import Users from './secure/Users';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Login from './public/Login';
 import Register from './public/Register';
+import axios from 'axios';
 
 function App() {
+  axios.defaults.baseURL = 'http://localhost:8011/api/';
+  axios.defaults.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+
   return (
     <div className="App">
       <BrowserRouter>
