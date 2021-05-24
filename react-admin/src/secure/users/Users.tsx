@@ -8,10 +8,27 @@ class Users extends Component {
   state = {
     users: []
   }
+  last_page = 0;
+  first_page = 1;
+  current_page = 1;
+
+  handleNext = async () => {
+    if (this.last_page === this.current_page) return;
+    this.current_page++;
+    await this.componentDidMount()
+  }
+
+  handlePrevious = async () => {
+    if (this.first_page === this.current_page) return;
+    this.current_page--;
+    await this.componentDidMount()
+  }
 
   componentDidMount = async () => {
-    const response = await axios.get('users');
+    const response = await axios.get(`users?page=${this.current_page}`);
     this.setState({ users: response.data.data })
+    this.current_page = response.data.meta.current_page;
+    this.last_page = response.data.meta.last_page;
   }
 
   render() {
@@ -38,7 +55,7 @@ class Users extends Component {
                 this.state.users.map((user: User, index) => {
                   return (
                     <tr>
-                      <td>{index + 1}</td>
+                      <td>{user.id}</td>
                       <td>{user.first_name} {user.last_name}</td>
                       <td>{user.email}</td>
                       <td>{user.role.name}</td>
@@ -57,6 +74,16 @@ class Users extends Component {
           </table>
         </div>
       </div>
+      <nav>
+        <ul className="pagination">
+          <li className="page-item">
+            <a href="#" className="page-link" onClick={this.handlePrevious}>Previous</a>
+          </li>
+          <li className="page-item">
+            <a href="#" className="page-link" onClick={this.handleNext}>Next</a>
+          </li>
+        </ul>
+      </nav>
     </Wrapper>)
   }
 }
