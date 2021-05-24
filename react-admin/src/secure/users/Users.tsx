@@ -30,7 +30,13 @@ class Users extends Component {
     this.current_page = response.data.meta.current_page;
     this.last_page = response.data.meta.last_page;
   }
+  handleDeleteUser = async (id: number) => {
+    if (window.confirm('Are you sure want to delete this record?')) {
+      await axios.delete(`users/${id}`);
 
+      this.setState({ users: this.state.users.filter((user: User) => user.id !== id) })
+    }
+  }
   render() {
     return (<Wrapper>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -62,7 +68,7 @@ class Users extends Component {
                       <td>
                         <div className="btn-group mr-2">
                           <Link to={'/users/edit'} href="#" className="btn btn-sm btn-outline-secondary">Edit</Link>
-                          <Link to={'/users/delete'} className="btn btn-sm btn-outline-secondary">Delete</Link>
+                          <Link to={'/users/delete'} className="btn btn-sm btn-outline-secondary" onClick={() => this.handleDeleteUser(user.id)}>Delete</Link>
                         </div>
                       </td>
                     </tr>
