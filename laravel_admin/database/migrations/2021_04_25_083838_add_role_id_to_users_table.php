@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 class AddRoleIdToUsersTable extends Migration
 {
+    const DEFAULT_ROLE_ID = '2';
+
+
     /**
      * Run the migrations.
      *
@@ -14,7 +17,7 @@ class AddRoleIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('role_id')->default(self::DEFAULT_ROLE_ID);
 
             $table->foreign('role_id')->references('id')->on('roles');
         });

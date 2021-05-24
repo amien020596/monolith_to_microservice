@@ -1,26 +1,37 @@
 import axios from 'axios';
 import React, { Component } from 'react'
+import { Redirect } from 'react-router';
 import './Public.css';
 
 export default class Register extends Component {
-  first_name = '';
-  last_name = '';
-  email = '';
-  password = '';
-  password_confirm = '';
+  constructor(props) {
+    super(props);
+    this.first_name = '';
+    this.last_name = '';
+    this.email = '';
+    this.password = '';
+    this.password_confirm = '';
+    this.state = {
+      redirect: false
+    }
+  }
 
   handleSubmitForm = async (e) => {
     e.preventDefault();
-    const response = await axios.post('http://localhost:8000/api/register', {
+    await axios.post('http://192.168.100.9:8011/api/register', {
       'first_name': this.first_name,
       'last_name': this.last_name,
       'email': this.email,
       'password': this.password,
       'password_confirm': this.password_confirm
     })
-    console.log("response")
+    this.setState({ redirect: true })
   }
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={'/login'} />
+    }
+
     return (
       <main className="form-signin">
         <form onSubmit={this.handleSubmitForm}>

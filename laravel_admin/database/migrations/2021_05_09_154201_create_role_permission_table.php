@@ -19,7 +19,7 @@ class CreateRolePermissionTable extends Migration
             $table->unsignedBigInteger('permission_id');
 
             $table->foreign('role_id')->references('id')->on('roles');
-            $table->foreign('permission_id')->references('id')->on('permission');
+            $table->foreign('permission_id')->references('id')->on('permissions');
         });
     }
 
