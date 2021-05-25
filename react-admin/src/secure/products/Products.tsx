@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { product } from '../../classes/product'
+import Deleter from '../components/Deleter'
 import Paginator from '../components/Paginator'
 import Wrapper from '../Wrapper'
 
@@ -28,13 +29,9 @@ export default class Products extends Component {
   }
 
   handleDeleteProduct = async (id: number) => {
-    if (window.confirm('Are you sure to delete this record?')) {
-
-      this.setState({
-        product: this.state.product.filter((product: product) => product.id !== id)
-      })
-      await axios.delete(`product/${id}`);
-    }
+    this.setState({
+      product: this.state.product.filter((product: product) => product.id !== id)
+    })
   }
   render() {
     return (
@@ -69,7 +66,7 @@ export default class Products extends Component {
                       <td>
                         <div className="btn-group mr-2">
                           <Link to={`/product/${product.id}/edit`} href="#" className="btn btn-sm btn-outline-secondary">Edit</Link>
-                          <a className="btn btn-sm btn-outline-secondary" onClick={() => this.handleDeleteProduct(product.id)}>Delete</a>
+                          <Deleter id={product.id} endpoint={'product'} handleDeleteRecord={this.handleDeleteProduct} />
                         </div>
                       </td>
                     </tr>
