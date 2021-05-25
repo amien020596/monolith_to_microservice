@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { User } from '../../classes/user';
+import Paginator from '../components/Paginator';
 import Wrapper from '../Wrapper';
 
 class Users extends Component {
@@ -12,16 +13,9 @@ class Users extends Component {
   first_page = 1;
   current_page = 1;
 
-  handleNext = async () => {
-    if (this.last_page === this.current_page) return;
-    this.current_page++;
-    await this.componentDidMount()
-  }
-
-  handlePrevious = async () => {
-    if (this.first_page === this.current_page) return;
-    this.current_page--;
-    await this.componentDidMount()
+  handlePageChange = async (page: number) => {
+    this.current_page = page;
+    await this.componentDidMount();
   }
 
   componentDidMount = async () => {
@@ -80,16 +74,8 @@ class Users extends Component {
           </table>
         </div>
       </div>
-      <nav>
-        <ul className="pagination">
-          <li className={this.current_page == this.first_page ? "page-item disabled" : "page-item"}>
-            <a href="#" className="page-link" onClick={this.handlePrevious}>Previous</a>
-          </li>
-          <li className={this.current_page == this.last_page ? "page-item disabled" : "page-item"}>
-            <a href="#" className="page-link" onClick={this.handleNext}>Next</a>
-          </li>
-        </ul>
-      </nav>
+
+      <Paginator last_page={this.last_page} handlePageChange={this.handlePageChange} />
     </Wrapper>)
   }
 }

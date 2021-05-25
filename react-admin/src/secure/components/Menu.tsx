@@ -19,6 +19,11 @@ const Menu = () => (
             Roles
             </NavLink>
         </li>
+        <li className="nav-item">
+          <NavLink to={'/product'} className="nav-link" aria-current="page" href="#">
+            Product
+            </NavLink>
+        </li>
       </ul>
     </div>
   </nav>
