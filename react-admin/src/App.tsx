@@ -13,6 +13,7 @@ import Roles from './secure/roles/Roles';
 import RolesCreate from './secure/roles/RolesCreate';
 import RolesEdit from './secure/roles/RolesEdit';
 import Products from './secure/products/Products';
+import ProductCreate from './secure/products/ProductCreate';
 
 function App() {
   axios.defaults.baseURL = 'http://192.168.100.9:8011/api/';
@@ -24,6 +25,7 @@ function App() {
         <Route path={'/'} exact component={RedirectToDashboard} />
         <Route path={'/dashboard'} component={Dashboard} />
         <Route path={'/product'} component={Products} exact={true} />
+        <Route path={'/product/create'} component={ProductCreate} />
         <Route path={'/roles'} component={Roles} exact={true} />
         <Route path={'/roles/:id/edit'} component={RolesEdit} />
         <Route path={'/roles/create'} component={RolesCreate} />

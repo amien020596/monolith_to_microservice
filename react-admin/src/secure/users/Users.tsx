@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { User } from '../../classes/user';
+import Deleter from '../components/Deleter';
 import Paginator from '../components/Paginator';
 import Wrapper from '../Wrapper';
 
@@ -25,11 +26,9 @@ class Users extends Component {
     this.last_page = response.data.meta.last_page;
   }
   handleDeleteUser = async (id: number) => {
-    if (window.confirm('Are you sure want to delete this record?')) {
 
-      this.setState({ users: this.state.users.filter((user: User) => user.id !== id) })
-      await axios.delete(`users/${id}`);
-    }
+    this.setState({ users: this.state.users.filter((user: User) => user.id !== id) })
+
   }
   render() {
     return (<Wrapper>
@@ -62,7 +61,7 @@ class Users extends Component {
                       <td>
                         <div className="btn-group mr-2">
                           <Link to={`/users/${user.id}/edit`} href="#" className="btn btn-sm btn-outline-secondary">Edit</Link>
-                          <a className="btn btn-sm btn-outline-secondary" onClick={() => this.handleDeleteUser(user.id)}>Delete</a>
+                          <Deleter id={user.id} endpoint={'users'} handleDeleteRecord={this.handleDeleteUser} />
                         </div>
                       </td>
                     </tr>
