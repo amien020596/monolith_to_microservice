@@ -48,7 +48,13 @@ class UserController extends Controller
     {
         Gate::authorize('edit', 'users');
         $user = User::find($id);
-        $user->update($request->only(['first_name', 'last_name', 'password', 'email', 'role_id']));
+
+        $userupdate = $request->only(['first_name', 'last_name', 'email', 'role_id']);
+        if ($request->input('password') !== '') {
+            $userupdate = $request->only(['first_name', 'last_name', 'email', 'role_id', 'password']);
+        }
+
+        $user->update($userupdate);
         return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 
