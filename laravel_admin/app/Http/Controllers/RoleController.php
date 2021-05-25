@@ -39,7 +39,7 @@ class RoleController extends Controller
     public function show($id)
     {
         Gate::authorize('view', 'roles');
-        return Role::find($id);
+        return new RoleResource(Role::find($id));
     }
 
     public function update(Request $request, $id)

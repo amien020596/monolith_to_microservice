@@ -11,7 +11,12 @@ const Menu = () => (
         </li>
         <li className="nav-item">
           <NavLink to={'/users'} className="nav-link" aria-current="page" href="#">
-            users
+            Users
+            </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to={'/roles'} className="nav-link" aria-current="page" href="#">
+            Roles
             </NavLink>
         </li>
       </ul>
