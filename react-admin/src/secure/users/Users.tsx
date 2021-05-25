@@ -60,7 +60,7 @@ class Users extends Component {
               {
                 this.state.users.map((user: User, index) => {
                   return (
-                    <tr>
+                    <tr key={user.id}>
                       <td>{user.id}</td>
                       <td>{user.first_name} {user.last_name}</td>
                       <td>{user.email}</td>
@@ -82,10 +82,10 @@ class Users extends Component {
       </div>
       <nav>
         <ul className="pagination">
-          <li className="page-item">
+          <li className={this.current_page == this.first_page ? "page-item disabled" : "page-item"}>
             <a href="#" className="page-link" onClick={this.handlePrevious}>Previous</a>
           </li>
-          <li className="page-item">
+          <li className={this.current_page == this.last_page ? "page-item disabled" : "page-item"}>
             <a href="#" className="page-link" onClick={this.handleNext}>Next</a>
           </li>
         </ul>
