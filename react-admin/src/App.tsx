@@ -16,6 +16,7 @@ import Products from './secure/products/Products';
 import ProductCreate from './secure/products/ProductCreate';
 import ProductEdit from './secure/products/ProductEdit';
 import Orders from './secure/orders/Orders';
+import OrderItem from './secure/orders/OrderItem';
 
 function App() {
   axios.defaults.baseURL = 'http://192.168.100.9:8011/api/';
@@ -36,6 +37,7 @@ function App() {
         <Route path={'/users/:id/edit'} component={UserUpdate} />
         <Route path={'/users/create'} component={UserCreate} />
         <Route path={'/orders'} exact={true} component={Orders} />
+        <Route path={'/orders/:id'} component={OrderItem} />
         <Route path={'/login'} component={Login} />
         <Route path={'/register'} component={Register} />
       </BrowserRouter>
