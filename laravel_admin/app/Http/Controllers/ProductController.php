@@ -41,7 +41,7 @@ class ProductController extends Controller
     {
         Gate::authorize('edit', 'products');
         $product = Product::find($id);
-        $product->update($request->only('title', 'description', 'price', 'images'));
+        $product->update($request->only('title', 'description', 'price', 'image'));
         return response($product, Response::HTTP_ACCEPTED);
     }
 }
