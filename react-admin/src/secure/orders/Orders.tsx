@@ -60,7 +60,6 @@ export default class Orders extends Component {
                         <td>
                           <div className="btn-group mr-2">
                             <Link to={`/orders/${order.id}`} href="#" className="btn btn-sm btn-outline-secondary">View</Link>
-
                           </div>
                         </td>
                       </tr>
