@@ -13,7 +13,7 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
-        factory(Order::class, 30)->create()->each(function ($order) {
+        factory(Order::class, 10)->create()->each(function ($order) {
             factory(OrderItem::class, random_int(1, 5))->create([
                 'order_id' => $order->id
             ]);
