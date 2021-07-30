@@ -20,7 +20,7 @@ class Nav extends Component {
 
   onHandleClick = () => {
     localStorage.clear();
-    axios.defaults.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+    //axios.defaults.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
     this.setState({ redirect: true })
   }
 
@@ -33,7 +33,7 @@ class Nav extends Component {
         <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Company name</a>
         <ul className="my-2 my-md-0 mr-md-3">
           <Link to={'profile'} className='p-2 text-white'>{this.state.user.first_name} {this.state.user.last_name}</Link>
-          <a className="'p-2 text-white" href="#" onClick={this.onHandleClick}>Sign out</a>
+          <Link className="'p-2 text-white" to={'login'} onClick={this.onHandleClick}>Sign out</Link>
         </ul>
       </header>
     )

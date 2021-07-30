@@ -18,9 +18,11 @@ class Login extends Component {
       password: this.password
     })
     localStorage.setItem('token', response.data.token)
-    this.setState({
-      redirect: true
-    })
+    setTimeout(() => {
+      this.setState({
+        redirect: true
+      })
+    }, 500)
   }
 
   render() {
