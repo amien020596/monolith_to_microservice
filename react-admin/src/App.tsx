@@ -18,6 +18,7 @@ import ProductCreate from './secure/products/ProductCreate';
 import ProductEdit from './secure/products/ProductEdit';
 import Orders from './secure/orders/Orders';
 import OrderItem from './secure/orders/OrderItem';
+import Profile from './secure/profile/Profile';
 
 function App() {
   axios.defaults.baseURL = 'http://192.168.100.9:8011/api/';
@@ -28,6 +29,7 @@ function App() {
       <BrowserRouter>
         <Route path={'/'} exact component={RedirectToDashboard} />
         <Route path={'/dashboard'} component={Dashboard} />
+        <Route path={'/profile'} component={Profile} />
         <Route path={'/product'} component={Products} exact={true} />
         <Route path={'/product/create'} component={ProductCreate} />
         <Route path={'/product/:id/edit'} component={ProductEdit} />
