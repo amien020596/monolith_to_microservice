@@ -12,8 +12,8 @@ class Dashboard extends Component {
       data: {
         x: 'x',
         columns: [
-          ['x', '2020-12-12'],
-          ['Sales', 100]
+          ['x'],
+          ['Sales']
         ]
       },
       axis: {
