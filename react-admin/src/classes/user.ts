@@ -8,12 +8,15 @@ export class User {
   role: role;
   permissions: string[];
 
-  constructor(id = 0, first_name = '', last_name = '', email = '', Role = new role(), permissions: []) {
+  constructor(id = 0, first_name = '', last_name = '', email = '', Role = new role(), permissions: string[]) {
     this.id = id;
     this.first_name = first_name;
     this.last_name = last_name;
     this.email = email;
     this.role = Role;
     this.permissions = permissions;
+  }
+  get name() {
+    return this.first_name + ' ' + this.last_name;
   }
 }
