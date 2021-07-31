@@ -16,7 +16,16 @@ export class User {
     this.role = Role;
     this.permissions = permissions;
   }
+
   get name() {
     return this.first_name + ' ' + this.last_name;
+  }
+
+  canView(page: string) {
+    return this.permissions.some(permission => permission === `view_${page}`)
+  }
+
+  canEdit(page: string) {
+    return this.permissions.some(permission => permission === `edit_${page}`)
   }
 }

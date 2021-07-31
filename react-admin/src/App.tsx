@@ -30,9 +30,9 @@ function App() {
         <Route path={'/'} exact component={RedirectToDashboard} />
         <Route path={'/dashboard'} component={Dashboard} />
         <Route path={'/profile'} component={Profile} />
-        <Route path={'/product'} component={Products} exact={true} />
-        <Route path={'/product/create'} component={ProductCreate} />
-        <Route path={'/product/:id/edit'} component={ProductEdit} />
+        <Route path={'/products'} component={Products} exact={true} />
+        <Route path={'/products/create'} component={ProductCreate} />
+        <Route path={'/products/:id/edit'} component={ProductEdit} />
         <Route path={'/roles'} component={Roles} exact={true} />
         <Route path={'/roles/:id/edit'} component={RolesEdit} />
         <Route path={'/roles/create'} component={RolesCreate} />
