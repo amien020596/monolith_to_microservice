@@ -37,3 +37,10 @@ Route::group([
   Route::apiResource('roles', 'RoleController');
   Route::apiResource('permissions', 'PermissionController')->only('index');
 });
+
+Route::group([
+  'prefix' => 'influencer',
+  'namespace' => 'Influencer'
+], function () {
+  Route::get('products', 'ProductsController@index');
+});
