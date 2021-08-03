@@ -13,18 +13,24 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+// common Route
 Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
 
 Route::group([
   'middleware' => 'auth:api',
+], function () {
+  Route::get('user', 'AuthController@user');
+  Route::put('users/info', 'AuthController@updateInfo');
+  Route::put('users/password', 'AuthController@updatePassword');
+});
+
+// admin Route
+Route::group([
+  'middleware' => 'auth:api',
   'prefix' => 'admin',
   'namespace' => 'Admin'
 ], function () {
-  Route::get('user', 'UserController@user');
-  Route::put('users/info', 'UserController@updateInfo');
-  Route::put('users/password', 'UserController@updatePassword');
 
   Route::post('logout', 'AuthController@logout');
   Route::post('upload', 'ImageUploadController@upload');
@@ -38,6 +44,7 @@ Route::group([
   Route::apiResource('permissions', 'PermissionController')->only('index');
 });
 
+// Influencer Route
 Route::group([
   'prefix' => 'influencer',
   'namespace' => 'Influencer'

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdateInfoRequest;
+use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Resources\UserResource;
 use App\User;
 use Cookie;
 use Illuminate\Http\Request;
@@ -40,5 +43,31 @@ class AuthController extends Controller
     {
         $user = User::create($request->only(['first_name', 'last_name', 'password', 'email']));
         return response($user, Response::HTTP_CREATED);
+    }
+
+    public function user()
+    {
+        $user = Auth::user();
+        return (new UserResource($user))->additional([
+            'data' => [
+                'permissions' => $user->permissions()
+            ]
+        ]);
+    }
+
+    public function updateInfo(UpdateInfoRequest $request)
+    {
+        $user = Auth::user();
+        $user->update($request->only('first_name', 'last_name', 'email'));
+        return response(new UserResource($user), Response::HTTP_ACCEPTED);
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+        $user = Auth::user();
+        $user->update([
+            'password' => $request->input('password')
+        ]);
+        return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 }
