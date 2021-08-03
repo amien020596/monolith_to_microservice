@@ -33,7 +33,15 @@ class UserController
     public function store(UserCreateRequest $request)
     {
         Gate::authorize('edit', 'users');
-        $user = User::create($request->only(['first_name', 'last_name', 'password', 'email', 'role_id']));
+        $user = User::create($request->only(
+            [
+                'first_name',
+                'last_name',
+                'password',
+                'email',
+                'role_id' => 1,
+            ]
+        ));
         return response(new UserResource($user), Response::HTTP_CREATED);
     }
 
@@ -55,32 +63,6 @@ class UserController
         }
 
         $user->update($userupdate);
-        return response(new UserResource($user), Response::HTTP_ACCEPTED);
-    }
-
-    public function user()
-    {
-        $user = Auth::user();
-        return (new UserResource($user))->additional([
-            'data' => [
-                'permissions' => $user->permissions()
-            ]
-        ]);
-    }
-
-    public function updateInfo(UpdateInfoRequest $request)
-    {
-        $user = Auth::user();
-        $user->update($request->only('first_name', 'last_name', 'email'));
-        return response(new UserResource($user), Response::HTTP_ACCEPTED);
-    }
-
-    public function updatePassword(UpdatePasswordRequest $request)
-    {
-        $user = Auth::user();
-        $user->update([
-            'password' => $request->input('password')
-        ]);
         return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 }

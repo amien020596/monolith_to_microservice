@@ -41,14 +41,32 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $user = User::create($request->only(['first_name', 'last_name', 'password', 'email']));
+        $user = User::create(
+            $request->only(
+                [
+                    'first_name',
+                    'last_name',
+                    'password',
+                    'email'
+                ]
+            )
+                + [
+
+                    'is_influencer' => 1
+                ]
+
+        );
         return response($user, Response::HTTP_CREATED);
     }
 
     public function user()
     {
         $user = Auth::user();
-        return (new UserResource($user))->additional([
+        $resources = new UserResource($user);
+        if ($user->isInfluencer()) {
+            return $resources;
+        }
+        return ($resources)->additional([
             'data' => [
                 'permissions' => $user->permissions()
             ]
