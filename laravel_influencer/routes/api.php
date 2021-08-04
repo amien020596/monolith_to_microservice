@@ -50,8 +50,10 @@ Route::group([
   'namespace' => 'Influencer'
 ], function () {
   Route::get('products', 'ProductsController@index');
+
   Route::group([
-    'middleware' => ['scope:admin'],
+    'middleware' => ['auth:api', 'scope:influencer'],
   ], function () {
+    Route::post('links', 'LinkController@store');
   });
 });
