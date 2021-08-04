@@ -19,7 +19,16 @@ class AuthController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
-            $token = $user->createToken('Admin')->accessToken;
+            $scope = $request->input('scope');
+
+            if ($user->isInfluencer() && $scope !== 'influencer') {
+
+                return response([
+                    'error' => 'Access Denied!'
+                ], Response::HTTP_FORBIDDEN);
+            }
+
+            $token = $user->createToken($scope, [$scope])->accessToken;
             $cookie = cookie('jwt', $token, 3600);
 
             return response([
