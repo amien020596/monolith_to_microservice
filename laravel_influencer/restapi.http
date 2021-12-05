@@ -1,0 +1,32 @@
+GET http://localhost:8014/api/influencer/products HTTP/1.1
+
+GET http://localhost:8014/api/checkout/links/joE1MY HTTP/1.1
+
+POST  http://localhost:8014/api/checkout/orders HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+{
+  "first_name":"amien",
+  "last_name":"kurniawan",
+  "email":"offdevamienk@gmail.com",
+  "code":"RFJp5s",
+  "items":[
+    {
+      "product_id":1,
+      "quantity":10
+    },
+    {
+      "product_id":2,
+      "quantity":10
+    }
+    {
+      "product_id":3,
+      "quantity":10
+    }
+  ],
+  "address":"address",
+  "address2":"address 2",
+  "city":"semarang",
+  "country":"indonesia",
+  "zip":59577
+}
