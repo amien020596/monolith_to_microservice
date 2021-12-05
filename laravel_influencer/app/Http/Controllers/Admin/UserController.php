@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\AddNewAdmin;
 use App\Http\Requests\UpdateInfoRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UserCreateRequest;
@@ -43,6 +44,8 @@ class UserController
                 'role_id' => 1,
             ]
         ));
+        // send email to new user
+        event(new AddNewAdmin($user));
         return response(new UserResource($user), Response::HTTP_CREATED);
     }
 

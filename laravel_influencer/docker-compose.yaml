@@ -1,5 +1,5 @@
 version: '3.7'
-services: 
+services:
   frontend:
     image: antoniopapa1991/admin-frontend
     ports:
@@ -14,57 +14,66 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment: 
+    environment:
       DB_HOST: database
       DB_DATABASE: influencer
       DB_USERNAME: root
       DB_PASSWORD: root
       APP_URL: "http://localhost:8014"
     restart: always
-    ports:     
+    ports:
       - 8014:8000
-    volumes: 
+    volumes:
       - .:/app
-    depends_on: 
+    depends_on:
       - database
-    networks: 
+    networks:
       - app
-      
+
   database:
     container_name: influencer_db
     image: mysql:5.7.22
-    environment: 
+    environment:
       MYSQL_DATABASE: influencer
       MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
-    volumes: 
+    volumes:
       - .dbdata:/var/lib/mysql
     restart: always
     ports:
       - 3016:3306
-    networks: 
+    networks:
       - app
-      
+
+  mailcatcher:
+    container_name: mailcatcher
+    image: dockage/mailcatcher:0.6.5
+    restart: always
+    ports:
+      - 1080:1080
+      - 1025:1025
+    networks:
+      - app
+
   composer:
     build:
       context: .
       dockerfile: composer.Dockerfile
     volumes:
       - .:/app
-    networks: 
+    networks:
       - app
 
-  
   artisan:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - .:/app
-    entrypoint: ["php","/app/artisan"]
-    networks: 
+    entrypoint: [ "php", "/app/artisan" ]
+    networks:
       - app
 
-networks: 
-  app:
+networks:
+  app: null

@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Events\AddNewAdmin;
+use App\Events\OrderCompleteEvent;
+use App\Listeners\NotifyAddedNewAdmin;
+use App\Listeners\NotifyAdminListener;
+use App\Listeners\NotifyInfluencerListener;
+use Facade\Ignition\Middleware\AddLogs;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +24,13 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        OrderCompleteEvent::class => [
+            NotifyAdminListener::class,
+            NotifyInfluencerListener::class
+        ],
+        AddNewAdmin::class => [
+            NotifyAddedNewAdmin::class
+        ]
     ];
 
     /**
