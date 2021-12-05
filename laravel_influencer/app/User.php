@@ -41,6 +41,8 @@ use Laravel\Passport\HasApiTokens;
  * @property-read \App\Role $role
  * @method static \Illuminate\Database\Eloquent\Builder|User whereIsInfluencer($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRoleId($value)
+ * @property-read mixed $full_name
+ * @property-read mixed $revenue
  */
 class User extends Authenticatable
 {
@@ -96,10 +98,13 @@ class User extends Authenticatable
     public function getRevenueAttribute()
     {
         $orders = Order::where('user_id', $this->id)->where('complete', 1)->get();
-
-
         return $orders->sum(function (Order $order) {
             return $order->influencer_total;
         });
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . " " . $this->last_name;
     }
 }

@@ -37,6 +37,7 @@ Route::group([
   Route::get('export', 'OrderController@export');
   Route::get('chart', 'DashboardController@chartOrder');
 
+
   Route::apiResource('users', 'UserController');
   Route::apiResource('product', 'ProductController');
   Route::apiResource('orders', 'OrderController')->only('index', 'show');
@@ -56,6 +57,7 @@ Route::group([
   ], function () {
     Route::post('links', 'LinkController@store');
     Route::get('stats', 'StatsController@index');
+    Route::get('ranking', 'RankingController@index');
   });
 });
 

@@ -20,6 +20,8 @@ services:
       DB_USERNAME: root
       DB_PASSWORD: root
       APP_URL: "http://localhost:8014"
+      MAIL_HOST: mailcatcher
+      REDIS_HOST: redis
     restart: always
     ports:
       - 8014:8000
@@ -27,6 +29,7 @@ services:
       - .:/app
     depends_on:
       - database
+      - redis
     networks:
       - app
 
@@ -43,6 +46,13 @@ services:
     restart: always
     ports:
       - 3016:3306
+    networks:
+      - app
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: always
     networks:
       - app
 
