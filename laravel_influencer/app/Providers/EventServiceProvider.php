@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Events\AddNewAdmin;
 use App\Events\OrderCompleteEvent;
+use App\Events\ProductUpdatedEvent;
 use App\Listeners\NotifyAddedNewAdmin;
 use App\Listeners\NotifyAdminListener;
 use App\Listeners\NotifyInfluencerListener;
+use App\Listeners\ProductUpdatedListener;
 use Facade\Ignition\Middleware\AddLogs;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -30,6 +32,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         AddNewAdmin::class => [
             NotifyAddedNewAdmin::class
+        ],
+        ProductUpdatedEvent::class => [
+            ProductUpdatedListener::class
         ]
     ];
 
