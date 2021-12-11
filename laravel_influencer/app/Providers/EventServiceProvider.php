@@ -9,6 +9,7 @@ use App\Listeners\NotifyAddedNewAdmin;
 use App\Listeners\NotifyAdminListener;
 use App\Listeners\NotifyInfluencerListener;
 use App\Listeners\ProductUpdatedListener;
+use App\Listeners\UpdateRankingsListener;
 use Facade\Ignition\Middleware\AddLogs;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -28,7 +29,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderCompleteEvent::class => [
             NotifyAdminListener::class,
-            NotifyInfluencerListener::class
+            NotifyInfluencerListener::class,
+            UpdateRankingsListener::class
         ],
         AddNewAdmin::class => [
             NotifyAddedNewAdmin::class
