@@ -55,6 +55,8 @@ services:
     restart: always
     networks:
       - app
+    ports:
+      - 6379:6379
 
   mailcatcher:
     container_name: mailcatcher

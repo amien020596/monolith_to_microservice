@@ -13,8 +13,7 @@ class ProductsController
     public function index(Request $request)
     {
 
-        $products = Cache::remember('products', 5, function () use ($request) {
-            sleep(10);
+        $products = Cache::remember('products', 5, function () {
             return  Product::get();
         });
 
