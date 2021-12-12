@@ -1,18 +1,13 @@
-<<<<<<< HEAD
-/laravel_admin/.dbdata
-/laravel_influencer/storage
-/laravel_influencer/vendor
+/react-influencer/node_modules/
+
 /react-admin/node_modules
-/react-influencer/node_modules
-/laravel_influencer/.env
-/laravel_admin/.dbdata
-/laravel_admin/.dbdata/admin/
+
 /laravel_admin/.dbdata/
-/laravel_admin/.dbdata/
+/laravel_admin/storage/
+/laravel_admin/vendor/
+/laravel_admin/.env
+
 /laravel_influencer/storage/
 /laravel_influencer/vendor/
-/react-influencer/node_modules/
 /laravel_influencer/.env
-/laravel_admin/.dbdata/
-/laravel_admin/.dbdata/
 /laravel_influencer/.dbdata/
