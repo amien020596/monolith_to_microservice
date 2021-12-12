@@ -4,3 +4,6 @@
 /react-admin/node_modules
 /react-influencer/node_modules
 /laravel_influencer/.env
+/laravel_admin/.dbdata
+/laravel_admin/.dbdata/admin/
+/laravel_admin/.dbdata/
