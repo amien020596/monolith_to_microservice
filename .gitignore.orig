@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /laravel_admin/.dbdata
 /laravel_influencer/storage
 /laravel_influencer/vendor
@@ -8,8 +9,15 @@
 /laravel_admin/.dbdata
 /laravel_admin/.dbdata/admin/
 /laravel_admin/.dbdata/
-/laravel_admin/.dbdata/
+=======
+laravel_admin/.dbdata
+/laravel_influencer/.dbdata
+/laravel_influencer/.dbdata/*
+>>>>>>> section3
+=======
+laravel_admin/.dbdata
 /laravel_influencer/storage/
 /laravel_influencer/vendor/
 /react-influencer/node_modules/
 /laravel_influencer/.env
+>>>>>>> checkout
