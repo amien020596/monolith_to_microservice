@@ -1,6 +1,9 @@
 import Wrapper from "./Wrapper";
+import axios from "axios";
 
 function Main() {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('tokeninfluencer')}`;
+
   return (
     <Wrapper>
       <div className="row">

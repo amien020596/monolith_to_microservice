@@ -9,7 +9,7 @@ import axios from 'axios';
 
 function App() {
   axios.defaults.baseURL = 'http://localhost:8014/api/influencer';
-  axios.defaults.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+
 
   return (
     <div className='App'>

@@ -4,7 +4,6 @@ import React, { Component, SyntheticEvent } from 'react'
 
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-import { threadId } from 'worker_threads';
 
 class Login extends Component {
   email = '';
@@ -20,7 +19,8 @@ class Login extends Component {
       password: this.password,
       scope: 'influencer'
     })
-    localStorage.setItem('token', response.data.token)
+    localStorage.setItem('tokeninfluencer', response.data.token)
+
     setTimeout(() => {
       this.setState({
         redirect: true
