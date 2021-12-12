@@ -2,21 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateInfoRequest;
-use App\Http\Requests\UpdatePasswordRequest;
-use App\Http\Requests\UserCreateRequest;
-use App\Http\Requests\UserUpdateRequest;
-use App\Http\Resources\UserResource;
-use App\User;
-use Gate;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function index()
     {
+<<<<<<< HEAD
+        return 'hello from controller';
+=======
         Gate::authorize('view', 'users');
 
         $users = User::with('role')->paginate();
@@ -48,7 +42,13 @@ class UserController extends Controller
     {
         Gate::authorize('edit', 'users');
         $user = User::find($id);
-        $user->update($request->only(['first_name', 'last_name', 'password', 'email', 'role_id']));
+
+        $userupdate = $request->only(['first_name', 'last_name', 'email', 'role_id']);
+        if ($request->input('password') !== '') {
+            $userupdate = $request->only(['first_name', 'last_name', 'email', 'role_id', 'password']);
+        }
+
+        $user->update($userupdate);
         return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 
@@ -76,5 +76,6 @@ class UserController extends Controller
             'password' => $request->input('password')
         ]);
         return response(new UserResource($user), Response::HTTP_ACCEPTED);
+>>>>>>> section2
     }
 }

@@ -1,15 +1,11 @@
 version: '3.7'
 services: 
-  frontend:
-    image: antoniopapa1991/admin-frontend
-    ports:
-      - 8080:80
-    depends_on:
-      - server
-    networks:
-      - app
-
+<<<<<<< HEAD
+  
+  backend:
+=======
   server:
+>>>>>>> section3
     container_name: admin_api
     build:
       context: .
@@ -19,9 +15,7 @@ services:
       DB_DATABASE: admin
       DB_USERNAME: root
       DB_PASSWORD: root
-      APP_URL: "http://localhost:8011"
-    restart: always
-    ports:     
+    ports:
       - 8011:8000
     volumes: 
       - .:/app
@@ -40,7 +34,6 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes: 
       - .dbdata:/var/lib/mysql
-    restart: always
     ports:
       - 3012:3306
     networks: 
@@ -62,8 +55,6 @@ services:
     volumes:
       - .:/app
     entrypoint: ["php","/app/artisan"]
-    networks: 
-      - app
 
 networks: 
   app:

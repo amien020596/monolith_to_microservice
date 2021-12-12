@@ -14,22 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login', 'AuthController@login');
-Route::post('register', 'AuthController@register');
-
-Route::group(['middleware' => 'auth:api'], function () {
-  Route::get('user', 'UserController@user');
-  Route::put('users/info', 'UserController@updateInfo');
-  Route::put('users/password', 'UserController@updatePassword');
-
-  Route::post('logout', 'AuthController@logout');
-  Route::post('upload', 'ImageUploadController@upload');
-  Route::get('export', 'OrderController@export');
-  Route::get('chart', 'DashboardController@chartOrder');
-
-  Route::apiResource('users', 'UserController');
-  Route::apiResource('product', 'ProductController');
-  Route::apiResource('orders', 'OrderController')->only('index', 'show');
-  Route::apiResource('roles', 'RoleController');
-  Route::apiResource('permissions', 'PermissionController')->only('index');
-});
+Route::get('hello', 'UserController@index');

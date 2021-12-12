@@ -34,14 +34,14 @@ class ProductController extends Controller
     public function store(CreateProductRequest $request)
     {
         Gate::authorize('edit', 'products');
-        $product = Product::create($request->only('title', 'description', 'price', 'images'));
+        $product = Product::create($request->only('title', 'description', 'price', 'image'));
         return response($product, Response::HTTP_CREATED);
     }
     public function update(Request $request, $id)
     {
         Gate::authorize('edit', 'products');
         $product = Product::find($id);
-        $product->update($request->only('title', 'description', 'price', 'images'));
+        $product->update($request->only('title', 'description', 'price', 'image'));
         return response($product, Response::HTTP_ACCEPTED);
     }
 }
