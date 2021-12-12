@@ -13,3 +13,6 @@
 /laravel_influencer/vendor/
 /react-influencer/node_modules/
 /laravel_influencer/.env
+/laravel_admin/.dbdata/
+/laravel_admin/.dbdata/
+/laravel_influencer/.dbdata/
