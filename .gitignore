@@ -1,1 +1,5 @@
 laravel_admin/.dbdata
+/laravel_influencer/storage/
+/laravel_influencer/vendor/
+/react-influencer/node_modules/
+/laravel_influencer/.env
