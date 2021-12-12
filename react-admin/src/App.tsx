@@ -1,27 +1,27 @@
-import React from 'react';
 import './App.css';
 
-import Dashboard from './secure/dashboard/Dashboard';
-import Users from './secure/users/Users';
 import { BrowserRouter, Route } from 'react-router-dom';
+
+import Dashboard from './secure/dashboard/Dashboard';
 import Login from './public/Login';
-import Register from './public/Register';
-import axios from 'axios';
+import OrderItem from './secure/orders/OrderItem';
+import Orders from './secure/orders/Orders';
+import ProductCreate from './secure/products/ProductCreate';
+import ProductEdit from './secure/products/ProductEdit';
+import Products from './secure/products/Products';
+import Profile from './secure/profile/Profile';
 import { RedirectToDashboard } from './secure/RedirectToDashboard';
-import UserCreate from './secure/users/UserCreate';
-import UserUpdate from './secure/users/UserUpdate';
+import Register from './public/Register';
 import Roles from './secure/roles/Roles';
 import RolesCreate from './secure/roles/RolesCreate';
 import RolesEdit from './secure/roles/RolesEdit';
-import Products from './secure/products/Products';
-import ProductCreate from './secure/products/ProductCreate';
-import ProductEdit from './secure/products/ProductEdit';
-import Orders from './secure/orders/Orders';
-import OrderItem from './secure/orders/OrderItem';
-import Profile from './secure/profile/Profile';
+import UserCreate from './secure/users/UserCreate';
+import UserUpdate from './secure/users/UserUpdate';
+import Users from './secure/users/Users';
+import axios from 'axios';
 
 function App() {
-  axios.defaults.baseURL = 'http://192.168.100.9:8011/api/';
+  axios.defaults.baseURL = 'http://192.168.100.9:8011/api/admin';
   axios.defaults.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
 
   return (
