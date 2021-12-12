@@ -1,7 +1,11 @@
 version: '3.7'
 services: 
+<<<<<<< HEAD
   
   backend:
+=======
+  server:
+>>>>>>> section3
     container_name: admin_api
     build:
       context: .

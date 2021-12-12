@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+<<<<<<< HEAD
         $this->call([
             RoleSeeder::class,
             PermissionSeeder::class,
@@ -19,5 +20,19 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             OrderSeeder::class
         ]);
+=======
+<<<<<<< HEAD
+        // $this->call(UsersTableSeeder::class);
+=======
+        $this->call([
+            RoleSeeder::class,
+            UserTableSeeder::class,
+            ProductSeeder::class,
+            PermissionSeeder::class,
+            RolePermissionSeeder::class,
+            OrderSeeder::class
+        ]);
+>>>>>>> section2
+>>>>>>> master
     }
 }

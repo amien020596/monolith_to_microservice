@@ -2,15 +2,26 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Http\Requests\ProductCreateRequest;
 use App\Http\Resources\ProductResource;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+=======
+use App\Http\Requests\CreateProductRequest;
+use App\Http\Resources\ProductResource;
+use App\Product;
+use Gate;
+use Illuminate\Http\Request;
+use Storage;
+use Str;
+>>>>>>> master
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
+<<<<<<< HEAD
     /**
      * @OA\Get(path="/products",
      *   security={{"bearerAuth":{}}},
@@ -129,4 +140,37 @@ class ProductController extends Controller
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
+=======
+    //
+    public function index()
+    {
+        Gate::authorize('view', 'products');
+        $products = Product::paginate();
+        return ProductResource::collection($products);
+    }
+    public function show($id)
+    {
+        Gate::authorize('view', 'products');
+        return new ProductResource(Product::find($id));
+    }
+    public function destroy($id)
+    {
+        Gate::authorize('edit', 'products');
+        Product::destroy($id);
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
+    public function store(CreateProductRequest $request)
+    {
+        Gate::authorize('edit', 'products');
+        $product = Product::create($request->only('title', 'description', 'price', 'image'));
+        return response($product, Response::HTTP_CREATED);
+    }
+    public function update(Request $request, $id)
+    {
+        Gate::authorize('edit', 'products');
+        $product = Product::find($id);
+        $product->update($request->only('title', 'description', 'price', 'image'));
+        return response($product, Response::HTTP_ACCEPTED);
+    }
+>>>>>>> master
 }

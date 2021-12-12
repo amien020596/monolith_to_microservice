@@ -9,8 +9,12 @@ class OrderItemResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
+<<<<<<< HEAD
      * @param \Illuminate\Http\Request $request
      *
+=======
+     * @param  \Illuminate\Http\Request  $request
+>>>>>>> master
      * @return array
      */
     public function toArray($request)
@@ -19,7 +23,11 @@ class OrderItemResource extends JsonResource
             'id' => $this->id,
             'product_title' => $this->product_title,
             'price' => (float) $this->price,
+<<<<<<< HEAD
             'quantity' => (int) $this->quantity,
+=======
+            'quantity' => (int) $this->quantity
+>>>>>>> master
         ];
     }
 }
