@@ -1,7 +1,9 @@
 import './Public.css';
+
 import React, { Component, SyntheticEvent } from 'react'
-import axios from 'axios';
+
 import { Redirect } from 'react-router';
+import axios from 'axios';
 import { threadId } from 'worker_threads';
 
 class Login extends Component {
@@ -15,7 +17,8 @@ class Login extends Component {
     e.preventDefault();
     const response = await axios.post('login', {
       email: this.email,
-      password: this.password
+      password: this.password,
+      scope: 'admin'
     })
     localStorage.setItem('token', response.data.token)
     setTimeout(() => {
