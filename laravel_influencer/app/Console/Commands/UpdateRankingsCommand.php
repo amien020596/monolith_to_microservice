@@ -16,7 +16,7 @@ class UpdateRankingsCommand extends Command
     public function handle()
     {
         $users = User::where('is_influencer', 1)->get();
-        Log::debug($users);
+
         $users->each(function (User $user) {
             $orders = Order::Where('user_id', $user->id)->where('complete', 1)->get();
             $revenue =  $orders->sum(function (Order $order) {
