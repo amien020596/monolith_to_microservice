@@ -1,5 +1,5 @@
 const dev = {
-  BASE_URL: 'http://localhost:8014/api/influemcer',
+  BASE_URL: 'http://localhost:8014/api/influencer',
   CHECKOUT_URL: 'http://localhost:3002'
 }
 

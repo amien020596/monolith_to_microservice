@@ -9,7 +9,6 @@ export default function Stats() {
 
   useEffect(() => {
     axios.get('stats').then(response => {
-      console.log("response ranking", response.data)
       setstats(response.data)
     }).catch(error => {
 
