@@ -10,7 +10,6 @@ import setUser from "../redux/actions/setUserAction";
 
 function Wrapper(props: PropsWithChildren<any>) {
   const tokeninfluencer = localStorage.getItem('tokeninfluencer');
-  console.log("tokeninfluencer", tokeninfluencer)
   useEffect(() => {
     if (tokeninfluencer) {
 
@@ -35,17 +34,13 @@ function Wrapper(props: PropsWithChildren<any>) {
   return (
     <>
       <Nav />
-      <main role="main">
 
-        <Header />
 
-        <div className="album py-5 bg-light">
-          <div className="container">
-            {props.children}
-          </div>
+      <div className="album py-5 bg-light">
+        <div className="container">
+          {props.children}
         </div>
-
-      </main>
+      </div>
 
       <Footer />
     </>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import Header from "../components/Header";
 import Wrapper from "./Wrapper";
 import axios from "axios";
 import { product } from "../classes/product";
@@ -26,6 +27,10 @@ function Main() {
 
   return (
     <Wrapper>
+      <main role="main">
+
+        <Header />
+      </main>
       <div className="row">
         <div className="col-md-12">
           <input type="text" className="form-control" placeholder="Search by title or description"
@@ -53,6 +58,7 @@ function Main() {
           )
         })}
       </div>
+
     </Wrapper>
   )
 }

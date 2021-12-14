@@ -19,6 +19,8 @@ function Nav(props: PropsWithRef<any>) {
       <>
         <nav className="my-2 my-md-0 mr-md-3">
           <button onClick={handleLogout} type="button" className="btn btn-link">logout</button>
+          <Link to={"/rankings"} className="btn btn-link">rankings</Link>
+          <Link to={"/stats"} className="btn btn-link">Stats</Link>
         </nav>
         <Link to={"/profile"} className="btn btn-outline-primary">{props.user.first_name}</Link>
       </>
