@@ -12,3 +12,4 @@
 /laravel_influencer/.env
 /laravel_influencer/.dbdata/
 /microservice/email/vendor/
+/microservice/users/.dbdata/
