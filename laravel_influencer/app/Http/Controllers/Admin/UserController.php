@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
+use App\Jobs\AdminAdded;
 use App\User;
 use App\UserRole;
 use Gate;
@@ -41,11 +42,15 @@ class UserController
                 'last_name',
                 'password',
                 'email',
-                'role_id' => 1,
             ]
         ));
+        UserRole::create([
+            'user_id' => $user->id,
+            'role_id' => $request->input('role_id')
+        ]);
         // send email to new user
-        event(new AddNewAdmin($user));
+        AdminAdded::dispatch($user->email);
+
         return response(new UserResource($user), Response::HTTP_CREATED);
     }
 

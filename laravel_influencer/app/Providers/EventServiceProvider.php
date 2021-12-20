@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Events\AddNewAdmin;
+
 use App\Events\OrderCompleteEvent;
 use App\Events\ProductUpdatedEvent;
-use App\Listeners\NotifyAddedNewAdmin;
+
 use App\Listeners\NotifyAdminListener;
 use App\Listeners\NotifyInfluencerListener;
 use App\Listeners\ProductUpdatedListener;
@@ -32,9 +32,7 @@ class EventServiceProvider extends ServiceProvider
             NotifyInfluencerListener::class,
             UpdateRankingsListener::class
         ],
-        AddNewAdmin::class => [
-            NotifyAddedNewAdmin::class
-        ],
+
         ProductUpdatedEvent::class => [
             ProductUpdatedListener::class
         ]
