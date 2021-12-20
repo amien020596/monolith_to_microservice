@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: 'php artisan queue:work'
+    volumes:
+      - .:/app
+    depends_on:
+      - db_emails_queue
+      - mailhog
+    restart: always
+
+  db_emails_queue:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_DATABASE: db_emails_queue_influencer
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - .dbdata:/var/lib/mysql
+    restart: always
+    ports:
+      - 3019:3306
+
+  mailhog:
+    build:
+      context: .
+      dockerfile: Dockerfile.Mailhog
+    restart: always
+    ports:
+      - 8017:8025

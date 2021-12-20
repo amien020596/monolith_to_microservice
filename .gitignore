@@ -11,3 +11,7 @@
 /laravel_influencer/vendor/
 /laravel_influencer/.env
 /laravel_influencer/.dbdata/
+/microservice/users/vendor/
+/microservice/users/.dbdata/
+/microservice/users/storage/
+/microservice/users/.env

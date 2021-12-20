@@ -1,11 +1,14 @@
-
 import React, { Component } from 'react';
+
 import Wrapper from '../Wrapper';
-import c3 from 'c3';
 import axios from 'axios';
+import c3 from 'c3';
 
 class Dashboard extends Component {
+
   componentDidMount = async () => {
+    axios.defaults.baseURL = 'http://localhost:8014/api/admin';
+    axios.defaults.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
 
     let chart = c3.generate({
       bindto: '#chart',

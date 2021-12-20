@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Checkout;
 
 use App\Events\OrderCompleteEvent;
+use App\Jobs\OrderCompletedQueue;
 use App\Link;
 use App\Order;
 use App\OrderItem;
@@ -91,6 +92,11 @@ class OrderController
 
         // make event to send notify to admin and influencer
         event(new OrderCompleteEvent($order));
+
+        $data = $order->toArray();
+        $data['influencer_total'] = $order->influencer_total;
+        $data['admin_total'] = $order->admin_total;
+        OrderCompletedQueue::dispatch($data);
 
         return response([
             'message' => 'success'
