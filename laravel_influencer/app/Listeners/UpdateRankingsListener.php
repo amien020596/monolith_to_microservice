@@ -16,6 +16,6 @@ class UpdateRankingsListener
         $order = $event->order;
         $revenue = $order->influencer_total;
         $user = User::find($order->user_id);
-        Redis::ZINCBY('rankings', $revenue, $user->full_name);
+        Redis::ZINCRBY('rankings', $revenue, $user->full_name);
     }
 }
