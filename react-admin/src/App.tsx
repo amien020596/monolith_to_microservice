@@ -21,7 +21,6 @@ import Users from './secure/users/Users';
 import axios from 'axios';
 
 function App() {
-  axios.defaults.baseURL = 'http://localhost:8014/api/admin';
   axios.defaults.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
 
   return (

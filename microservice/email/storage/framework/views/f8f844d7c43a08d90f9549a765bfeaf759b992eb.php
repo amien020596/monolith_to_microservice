@@ -1,0 +1,1 @@
+Order #<?php echo e($id); ?> with a total of $<?php echo e($influencer_total); ?> has been completed!<?php /**PATH /app/resources/views/influencer/influencer.blade.php ENDPATH**/ ?>

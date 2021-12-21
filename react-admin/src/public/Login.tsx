@@ -4,6 +4,7 @@ import React, { Component, SyntheticEvent } from 'react'
 
 import { Redirect } from 'react-router';
 import axios from 'axios';
+import constants from '../constants';
 import { threadId } from 'worker_threads';
 
 class Login extends Component {
@@ -15,7 +16,7 @@ class Login extends Component {
 
   handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    const response = await axios.post('login', {
+    const response = await axios.post(`${constants.USERS_URL}/login`, {
       email: this.email,
       password: this.password,
       scope: 'admin'

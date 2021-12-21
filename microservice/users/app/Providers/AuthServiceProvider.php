@@ -32,6 +32,5 @@ class AuthServiceProvider extends ServiceProvider
             'admin' => 'Admin Access',
             'influencer' => 'Influencer Access'
         ]);
-        //
     }
 }

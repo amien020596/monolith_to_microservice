@@ -15,16 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', function () {
-    return 'test ok';
-});
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout']);
 
-Route::middleware(['auth:api'])->group(function () {
 
+Route::middleware(['auth:api'])->group(function () {
     Route::get('user', [AuthController::class, 'user']);
+
+
     Route::put('users/info', [AuthController::class, 'updateInfo']);
     Route::put('users/password', [AuthController::class, 'updatePassword']);
 });

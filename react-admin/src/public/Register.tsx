@@ -1,7 +1,10 @@
-import axios from 'axios';
-import React, { Component, SyntheticEvent } from 'react'
-import { Redirect } from 'react-router';
 import './Public.css';
+
+import React, { Component, SyntheticEvent } from 'react'
+
+import { Redirect } from 'react-router';
+import axios from 'axios';
+import constants from '../constants';
 
 export default class Register extends Component {
 
@@ -17,7 +20,7 @@ export default class Register extends Component {
 
   handleSubmitForm = async (e: SyntheticEvent) => {
     e.preventDefault();
-    await axios.post('register', {
+    await axios.post(`${constants.USERS_URL}/register`, {
       'first_name': this.first_name,
       'last_name': this.last_name,
       'email': this.email,
