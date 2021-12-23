@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('user', 'AuthController@user');
 // admin route
 Route::prefix('admin')->group(function () {
 
@@ -23,7 +24,7 @@ Route::prefix('admin')->group(function () {
 
   Route::middleware(['auth:api', 'scope:admin'])->group(function () {
 
-    Route::get('user', 'AuthController@user');
+
     Route::put('users/info', 'AuthController@updateInfo');
     Route::put('users/password', 'AuthController@updatePassword');
 

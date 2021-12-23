@@ -1,11 +1,12 @@
-import axios from 'axios';
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { User } from '../../classes/user';
+
 import Deleter from '../components/Deleter';
+import { Link } from 'react-router-dom';
 import Paginator from '../components/Paginator';
+import { User } from '../../classes/user';
 import Wrapper from '../Wrapper';
+import axios from 'axios';
+import { connect } from 'react-redux';
 
 class Users extends Component<{ user: User }> {
   state = {

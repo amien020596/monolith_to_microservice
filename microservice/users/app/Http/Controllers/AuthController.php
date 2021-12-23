@@ -17,7 +17,7 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        Log::debug("login user", [\Auth::attempt($request->only('email', 'password'))]);
+
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
             $scope = $request->input('scope');
@@ -72,9 +72,9 @@ class AuthController extends Controller
 
     public function user()
     {
-        Log::debug("user", [Auth::user()]);
+        Log::debug("test user", [Auth::user()]);
         if (Auth::user()) {
-            return "masuk ke sini";
+            return Auth::user();
         } else {
             return "failed";
         }
