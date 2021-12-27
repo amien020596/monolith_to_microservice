@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\OrderCompleteEvent;
-use App\User;
+use App\Services\UserServices;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Redis;
@@ -15,7 +15,8 @@ class UpdateRankingsListener
     {
         $order = $event->order;
         $revenue = $order->influencer_total;
-        $user = User::find($order->user_id);
+        $userService = new UserServices();
+        $user = $userService->get($order->user_id);
         Redis::ZINCRBY('rankings', $revenue, $user->full_name);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,9 @@ Route::get('test', [AuthController::class, function () {
 Route::middleware(['auth:api'])->group(function () {
     Route::get('user', [AuthController::class, 'user']);
 
-
+    Route::apiResource('users', UsersController::class);
     Route::put('users/info', [AuthController::class, 'updateInfo']);
     Route::put('users/password', [AuthController::class, 'updatePassword']);
+    Route::get('admin', [AuthController::class, 'authenticated'])->middleware('scope:admin');
+    Route::get('influencer', [AuthController::class, 'authenticated'])->middleware('scope:influencer');
 });

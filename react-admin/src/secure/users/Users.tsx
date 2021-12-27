@@ -7,6 +7,7 @@ import { User } from '../../classes/user';
 import Wrapper from '../Wrapper';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import constants from '../../constants';
 
 class Users extends Component<{ user: User }> {
   state = {
@@ -22,7 +23,7 @@ class Users extends Component<{ user: User }> {
   }
 
   componentDidMount = async () => {
-    const response = await axios.get(`users?page=${this.current_page}`);
+    const response = await axios.get(`${constants.BASE_URL}/admin/users?page=${this.current_page}`);
     this.setState({ users: response.data.data })
     this.current_page = response.data.meta.current_page;
     this.last_page = response.data.meta.last_page;

@@ -8,7 +8,7 @@ use App\Http\Requests\UpdateInfoRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Resources\UserResource;
 use App\Services\UserServices;
-use App\User;
+
 use Cookie;
 use Http;
 use Illuminate\Http\Request;
@@ -29,16 +29,18 @@ class AuthController extends Controller
         $user = $this->userService->getUser();
 
         $resources = new UserResource($user);
+
         if ($user->isInfluencer()) {
+
             return $resources->additional([
                 'data' => [
-                    'revenue' => $user->revenue
+                    'revenue' => $user->revenue()
                 ]
             ]);
         }
-        return ($resources)->additional([
+        return $resources->additional([
             'data' => [
-                'role' => $user->role,
+                'role' => $user->role(),
                 'permissions' => $user->permissions()
             ]
         ]);

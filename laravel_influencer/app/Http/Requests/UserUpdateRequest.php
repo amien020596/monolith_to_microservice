@@ -2,11 +2,17 @@
 
 namespace App\Http\Requests;
 
+use App\Services\UserServices;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserUpdateRequest extends FormRequest
 {
+    private $userService;
+    public function __construct(UserServices $userService)
+    {
+        $this->userService = $userService;
+    }
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -14,7 +20,7 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return Gate::authorize('edit', 'users');;
+        return $this->userService->allow('edit', 'users');
     }
 
     /**
