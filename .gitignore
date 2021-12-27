@@ -11,7 +11,14 @@
 /laravel_influencer/vendor/
 /laravel_influencer/.env
 /laravel_influencer/.dbdata/
+<<<<<<< HEAD
 /microservice/users/vendor/
 /microservice/users/.dbdata/
 /microservice/users/storage/
 /microservice/users/.env
+=======
+/microservice/email/vendor/
+/microservice/users/.dbdata/
+>>>>>>> section_8_users_microservice
+/laravel_admin/.dbdata/
+/microservice/email/.dbdata/

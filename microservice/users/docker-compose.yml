@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  users:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: users_db
+      DB_DATABASE: microservices_users
+      DB_USERNAME: root
+      DB_PASSWORD: root
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - 8016:8000
+    depends_on:
+      - users_db
+
+  users_db:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_DATABASE: microservices_users
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    volumes:
+      - .dbdata:/var/lib/mysql
+    ports:
+      - 3018:3306

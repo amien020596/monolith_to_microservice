@@ -8,41 +8,55 @@ use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
+<<<<<<< HEAD
 use App\Jobs\AdminAdded;
 use App\User;
+=======
+use App\Services\UserServices;
+
+>>>>>>> section_8_users_microservice
 use App\UserRole;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserController
 {
-    public function index()
+    private $userService;
+    public function __construct(UserServices $userService)
     {
-        Gate::authorize('view', 'users');
+        $this->userService = $userService;
+    }
 
-        $users = User::with('role')->paginate();
-        return UserResource::collection($users);
+    public function index(Request $request)
+    {
+        $this->userService->allow('view', 'users');
+        // $users = User::with('role')->paginate();
+        // return UserResource::collection($users);
+        return $this->userService->all($request->input('page', 1));
     }
 
     public function show($id)
     {
-        Gate::authorize('view', 'users');
-        $user = User::with('role')->find($id);
+        $this->userService->allow('view', 'users');
+        $user = $this->userService->get($id);
         return new UserResource($user);
     }
 
     public function store(UserCreateRequest $request)
     {
-        Gate::authorize('edit', 'users');
-        $user = User::create($request->only(
+        $this->userService->allow('edit', 'users');
+
+        $data = $request->only(
             [
                 'first_name',
                 'last_name',
                 'password',
                 'email',
             ]
+<<<<<<< HEAD
         ));
         UserRole::create([
             'user_id' => $user->id,
@@ -53,33 +67,45 @@ class UserController
 
         return response(new UserResource($user), Response::HTTP_CREATED);
     }
+=======
+        );
 
-    public function destroy($id)
-    {
-        Gate::authorize('edit', 'users');
-        User::destroy($id);
-        return response(null, Response::HTTP_NO_CONTENT);
+        $user = $this->userService->create($data);
+
+        // UserRole::create([
+        //     'user_id' => $user->id,
+        //     'role_id' => 1
+        // ]);
+        // send email to new user
+        event(new AddNewAdmin($user));
+>>>>>>> section_8_users_microservice
+
+        return response(new UserResource($user), Response::HTTP_CREATED);
     }
 
     public function update(UserUpdateRequest $request, $id)
     {
-        Gate::authorize('edit', 'users');
-        $user = User::find($id);
+        $this->userService->allow('edit', 'users');
 
+        Log::debug('user update', [$request->only(['email'])]);
         $userupdate = $request->only(['first_name', 'last_name', 'email']);
-        if ($request->input('password') !== '') {
-            $userupdate = $request->only(['first_name', 'last_name', 'email', 'password']);
-        }
+        $user = $this->userService->update($userupdate, $id);
 
-        $user->update($userupdate);
+        // UserRole::where('user_id', $user->id)->delete();
 
-        UserRole::where('user_id', $user->id)->delete();
-
-        UserRole::create([
-            'user_id' => $user->id,
-            'role_id' => $request->input('role_id')
-        ]);
+        // UserRole::create([
+        //     'user_id' => $user->id,
+        //     'role_id' => $request->input('role_id')
+        // ]);
 
         return response(new UserResource($user), Response::HTTP_ACCEPTED);
+    }
+
+    public function destroy($id)
+    {
+        $this->userService->allow('edit', 'users');
+        $this->userService->delete($id);
+
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }

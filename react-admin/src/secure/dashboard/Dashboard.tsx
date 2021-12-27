@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 import Wrapper from '../Wrapper';
 import axios from 'axios';
 import c3 from 'c3';
+<<<<<<< HEAD
+=======
+import constants from '../../constants';
+>>>>>>> section_8_users_microservice
 
 class Dashboard extends Component {
 
@@ -28,7 +32,7 @@ class Dashboard extends Component {
         }
       }
     })
-    const response = await axios.get('chart');
+    const response = await axios.get(`${constants.BASE_URL}/admin/chart`);
     const records: { date: string, sum: number }[] = response.data.data;
 
     chart.load({

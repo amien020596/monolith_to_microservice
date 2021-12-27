@@ -7,95 +7,42 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateInfoRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Resources\UserResource;
-use App\User;
+use App\Services\UserServices;
+
 use Cookie;
+use Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    private $userService;
+    public function __construct(UserServices $userService)
     {
-
-        if (Auth::attempt($request->only('email', 'password'))) {
-            $user = Auth::user();
-            $scope = $request->input('scope');
-
-            if ($user->isInfluencer() && $scope !== 'influencer') {
-
-                return response([
-                    'error' => 'Access Denied!'
-                ], Response::HTTP_FORBIDDEN);
-            }
-
-            $token = $user->createToken($scope, [$scope])->accessToken;
-            $cookie = cookie('jwt', $token, 3600);
-
-            return response([
-                'token' => $token
-            ])->withCookie($cookie);
-        }
-        return response([
-            'error' => 'Invalid Credentials!'
-        ], Response::HTTP_UNAUTHORIZED);
+        $this->userService = $userService;
     }
-
-    public function logout()
-    {
-        $cookie = Cookie::forget('jwt');
-        return response([
-            'message' => 'success'
-        ])->withCookie($cookie);
-    }
-
-    public function register(RegisterRequest $request)
-    {
-        $user = User::create(
-            $request->only(
-                [
-                    'first_name',
-                    'last_name',
-                    'password',
-                    'email'
-                ]
-            )
-                + [
-
-                    'is_influencer' => 1
-                ]
-
-        );
-        return response($user, Response::HTTP_CREATED);
-    }
-
     public function user()
     {
-        $user = Auth::user();
+
+        $user = $this->userService->getUser();
+
         $resources = new UserResource($user);
+
         if ($user->isInfluencer()) {
-            return $resources;
+
+            return $resources->additional([
+                'data' => [
+                    'revenue' => $user->revenue()
+                ]
+            ]);
         }
-        return ($resources)->additional([
+        return $resources->additional([
             'data' => [
+                'role' => $user->role(),
                 'permissions' => $user->permissions()
             ]
         ]);
-    }
-
-    public function updateInfo(UpdateInfoRequest $request)
-    {
-        $user = Auth::user();
-        $user->update($request->only('first_name', 'last_name', 'email'));
-        return response(new UserResource($user), Response::HTTP_ACCEPTED);
-    }
-
-    public function updatePassword(UpdatePasswordRequest $request)
-    {
-        $user = Auth::user();
-        $user->update([
-            'password' => $request->input('password')
-        ]);
-        return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 }

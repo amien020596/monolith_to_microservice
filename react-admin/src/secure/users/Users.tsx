@@ -7,6 +7,10 @@ import { User } from '../../classes/user';
 import Wrapper from '../Wrapper';
 import axios from 'axios';
 import { connect } from 'react-redux';
+<<<<<<< HEAD
+=======
+import constants from '../../constants';
+>>>>>>> section_8_users_microservice
 
 class Users extends Component<{ user: User }> {
   state = {
@@ -22,9 +26,13 @@ class Users extends Component<{ user: User }> {
   }
 
   componentDidMount = async () => {
+<<<<<<< HEAD
     axios.defaults.baseURL = 'http://localhost:8014/api/admin';
     axios.defaults.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
     const response = await axios.get(`users?page=${this.current_page}`);
+=======
+    const response = await axios.get(`${constants.BASE_URL}/admin/users?page=${this.current_page}`);
+>>>>>>> section_8_users_microservice
     this.setState({ users: response.data.data })
     this.current_page = response.data.meta.current_page;
     this.last_page = response.data.meta.last_page;
