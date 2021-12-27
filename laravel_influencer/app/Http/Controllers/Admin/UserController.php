@@ -8,13 +8,10 @@ use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
-<<<<<<< HEAD
 use App\Jobs\AdminAdded;
 use App\User;
-=======
 use App\Services\UserServices;
 
->>>>>>> section_8_users_microservice
 use App\UserRole;
 use Gate;
 use Illuminate\Http\Request;
@@ -56,20 +53,10 @@ class UserController
                 'password',
                 'email',
             ]
-<<<<<<< HEAD
-        ));
-        UserRole::create([
-            'user_id' => $user->id,
-            'role_id' => $request->input('role_id')
-        ]);
-        // send email to new user
-        AdminAdded::dispatch($user->email);
-
-        return response(new UserResource($user), Response::HTTP_CREATED);
-    }
-=======
         );
 
+        // send email to new user
+        AdminAdded::dispatch($user->email);
         $user = $this->userService->create($data);
 
         // UserRole::create([
@@ -77,8 +64,6 @@ class UserController
         //     'role_id' => 1
         // ]);
         // send email to new user
-        event(new AddNewAdmin($user));
->>>>>>> section_8_users_microservice
 
         return response(new UserResource($user), Response::HTTP_CREATED);
     }

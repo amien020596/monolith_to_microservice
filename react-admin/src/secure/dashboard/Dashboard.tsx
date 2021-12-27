@@ -3,10 +3,7 @@ import React, { Component } from 'react';
 import Wrapper from '../Wrapper';
 import axios from 'axios';
 import c3 from 'c3';
-<<<<<<< HEAD
-=======
 import constants from '../../constants';
->>>>>>> section_8_users_microservice
 
 class Dashboard extends Component {
 
