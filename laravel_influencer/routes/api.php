@@ -56,13 +56,3 @@ Route::prefix('influencer')->group(function () {
     });
   });
 });
-
-
-Route::group([
-  'prefix' => 'checkout',
-  'namespace' => 'Checkout'
-], function () {
-  Route::get('links/{code}', 'LinkController@show');
-  Route::post('orders', 'OrderController@store');
-  Route::post('orders/confirm', 'OrderController@confirm');
-});
