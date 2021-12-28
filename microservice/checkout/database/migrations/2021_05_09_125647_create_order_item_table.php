@@ -21,6 +21,7 @@ class CreateOrderItemTable extends Migration
             $table->unsignedInteger('quantity');
             $table->decimal('influencer_revenue');
             $table->decimal('admin_revenue');
+
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders');
