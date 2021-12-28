@@ -19,3 +19,4 @@
 
 /microservice/email/vendor/
 /microservice/email/.dbdata/
+/microservice/checkout/.dbdata/

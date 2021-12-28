@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  checkout:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: checkout_db
+      DB_DATABASE: microservices_checkout
+      DB_USERNAME: root
+      DB_PASSWORD: root
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - 8018:8000
+    depends_on:
+      - checkout_db
+
+  checkout_db:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_DATABASE: microservices_checkout
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    volumes:
+      - .dbdata:/var/lib/mysql
+    ports:
+      - 3020:3306
