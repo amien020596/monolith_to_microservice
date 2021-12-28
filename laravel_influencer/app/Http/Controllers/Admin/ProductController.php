@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Events\ProductUpdatedEvent;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Resources\ProductResource;
+use App\Jobs\ProductCreated;
 use App\Product;
 use Gate;
 use Illuminate\Http\Request;
@@ -40,7 +41,7 @@ class ProductController
         Gate::authorize('edit', 'products');
         $product = Product::create($request->only('title', 'description', 'price', 'image'));
         event(new ProductUpdatedEvent());
-
+        ProductCreated::dispatch($product->toArray());
         return response($product, Response::HTTP_CREATED);
     }
 

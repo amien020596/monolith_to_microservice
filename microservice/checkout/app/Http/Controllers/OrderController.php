@@ -14,6 +14,7 @@ use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Microservices\UserServices;
 
 class OrderController
 {
@@ -22,14 +23,15 @@ class OrderController
 
         $link = Link::whereCode($request->input('code'))->first();
         DB::beginTransaction();
+        $user = (new UserServices())->get($link->user_id);
 
         $order = new Order();
         $order->first_name = $request->input('first_name');
         $order->last_name = $request->input('last_name');
         $order->email = $request->input('email');
         $order->code = $request->input('code');
-        $order->user_id = $link->user->id;
-        $order->influencer_email = $link->user->email;
+        $order->user_id = $user->id;
+        $order->influencer_email = $user->email;
 
         $order->address = $request->input('address');
         $order->address2 = $request->input('address2');

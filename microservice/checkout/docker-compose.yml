@@ -17,6 +17,19 @@ services:
     depends_on:
       - checkout_db
 
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: 'php artisan queue:work'
+    environment:
+      DB_HOST: checkout_db
+      DB_DATABASE: microservices_checkout
+      DB_USERNAME: root
+      DB_PASSWORD: root
+    depends_on:
+      - checkout_db
+
   checkout_db:
     image: mysql:5.7.22
     environment:
