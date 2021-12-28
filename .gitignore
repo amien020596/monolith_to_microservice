@@ -19,3 +19,7 @@
 
 /microservice/email/vendor/
 /microservice/email/.dbdata/
+/microservice/checkout/.dbdata/
+/laravel_influencer/.dbdata/
+/laravel_admin/.dbdata/
+/laravel_admin/.dbdata/
