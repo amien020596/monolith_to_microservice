@@ -2,27 +2,28 @@
 
 namespace App\Jobs;
 
+use App\Models\Product;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Cache;
 
-class OrderCompletedQueue implements ShouldQueue
+class ProductUpdated implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $orderData;
-    public $orderItemsData;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($orderData, $orderItemsData)
+    private $data;
+    public function __construct($data)
     {
-        $this->orderData = $orderData;
-        $this->orderItemsData = $orderItemsData;
+        $this->data = $data;
     }
 
     /**
@@ -32,6 +33,8 @@ class OrderCompletedQueue implements ShouldQueue
      */
     public function handle()
     {
-        //
+        $product = Product::find($this->data['id']);
+        $product->update($this->data);
+        Cache::forget('products');
     }
 }

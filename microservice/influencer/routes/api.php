@@ -1,6 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\LinkController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\RankingController;
+use App\Http\Controllers\StatsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// influencer route
+Route::get('products', [ProductsController::class, 'index']);
+
+Route::middleware(['scope:influencer'])->group(function () {
+    Route::post('links', [LinkController::class, 'store']);
+    Route::get('stats', [StatsController::class, 'index']);
+    Route::get('ranking', [RankingController::class, 'index']);
 });
