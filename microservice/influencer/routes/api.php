@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\RankingController;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // influencer route
+Route::get('user', [AuthController::class, 'user']);
 Route::get('products', [ProductsController::class, 'index']);
 
 Route::middleware(['scope:influencer'])->group(function () {
