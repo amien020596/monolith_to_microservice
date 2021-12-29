@@ -17,30 +17,18 @@ services:
     depends_on:
       - influencer_db
 
-  # queue:
-
-  #   build:
-
-  #     context: .
-
-  #     dockerfile: Dockerfile
-
-  #   command: 'php artisan queue:work'
-
-  #   environment:
-
-  #     DB_HOST: influencer_db
-
-  #     DB_DATABASE: microservices_influencer
-
-  #     DB_USERNAME: root
-
-  #     DB_PASSWORD: root
-
-  #   depends_on:
-
-  #     - influencer_db
-
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: 'php artisan queue:work'
+    environment:
+      DB_HOST: influencer_db
+      DB_DATABASE: microservices_influencer
+      DB_USERNAME: root
+      DB_PASSWORD: root
+    depends_on:
+      - influencer_db
 
   influencer_db:
     image: mysql:5.7.22
