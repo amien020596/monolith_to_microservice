@@ -49,14 +49,22 @@ services:
     networks:
       - app
 
-  redis:
-    container_name: redis
-    image: redis:latest
-    restart: always
-    networks:
-      - app
-    ports:
-      - 6379:6379
+  # redis:
+
+  #   container_name: redis
+
+  #   image: redis:latest
+
+  #   restart: always
+
+  #   networks:
+
+  #     - app
+
+  #   ports:
+
+  #     - 6379:6379
+
 
   mailcatcher:
     container_name: mailcatcher

@@ -98,7 +98,13 @@ class OrderController
         $data = $order->toArray();
         $data['influencer_total'] = $order->influencer_total;
         $data['admin_total'] = $order->admin_total;
-        OrderCompletedQueue::dispatch($data);
+
+        $orderItems = [];
+        foreach ($order->orderItems as $item) {
+            $orderItems[] = $item->toArray();
+        }
+
+        OrderCompletedQueue::dispatch($data, $orderItems);
 
         return response([
             'message' => 'success'

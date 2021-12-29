@@ -15,16 +15,17 @@ use Illuminate\Support\Facades\Mail;
 class OrderCompletedQueue implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    public $order;
+    public $orderData;
+    public $orderItemsData;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($order)
+    public function __construct($orderData, $orderItemsData)
     {
-        $this->order = $order;
-        Log::debug('data queue', [$order]);
+        $this->orderData = $orderData;
+        $this->orderItemsData = $orderItemsData;
     }
 
     /**
@@ -35,8 +36,8 @@ class OrderCompletedQueue implements ShouldQueue
     public function handle()
     {
         Mail::send('influencer.admin', [
-            'id' => $this->order['id'],
-            'admin_total' => $this->order['admin_total'],
+            'id' => $this->orderData['id'],
+            'admin_total' => $this->orderData['admin_total'],
         ], function (Message $message) {
             $message->to('admin@admin.com');
             $message->sender('offdevamienk@gmail.com');
@@ -44,10 +45,10 @@ class OrderCompletedQueue implements ShouldQueue
         });
 
         Mail::send('influencer.influencer', [
-            'id' => $this->order['id'],
-            'influencer_total' => $this->order['influencer_total']
+            'id' => $this->orderData['id'],
+            'influencer_total' => $this->orderData['influencer_total']
         ], function (Message $message) {
-            $message->to($this->order['influencer_email']);
+            $message->to($this->orderData['influencer_email']);
             $message->sender('offdevamienk@gmail.com');
             $message->subject('A new order has been completed!');
         });

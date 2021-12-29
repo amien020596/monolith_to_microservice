@@ -38,21 +38,3 @@ Route::group(
     Route::apiResource('permissions', 'PermissionController')->only('index');
   }
 );
-
-// influencer route
-Route::prefix('influencer')->group(function () {
-
-  Route::namespace('Influencer')->group(function () {
-    Route::get('products', 'ProductsController@index');
-  });
-
-  Route::middleware(['auth:api', 'scope:influencer'])->group(function () {
-    Route::get('user', 'AuthController@user');
-
-    Route::namespace('Influencer')->group(function () {
-      Route::post('links', 'LinkController@store');
-      Route::get('stats', 'StatsController@index');
-      Route::get('ranking', 'RankingController@index');
-    });
-  });
-});
