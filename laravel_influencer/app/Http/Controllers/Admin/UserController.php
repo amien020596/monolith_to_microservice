@@ -55,9 +55,9 @@ class UserController
             ]
         );
 
+        $user = $this->userService->create($data);
         // send email to new user
         AdminAdded::dispatch($user->email);
-        $user = $this->userService->create($data);
 
         // UserRole::create([
         //     'user_id' => $user->id,
