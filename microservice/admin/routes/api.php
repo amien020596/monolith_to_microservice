@@ -24,17 +24,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('user', [AuthController::class, 'user']);
 
 // admin route
-Route::middleware(['scope.admin'])->group(
+Route::middleware('scope.admin')->group(
     function () {
 
+        Route::apiResource('users', UserController::class);
+        Route::apiResource('product', ProductController::class);
+        Route::apiResource('orders', OrderController::class)->only('index', 'show');
+        Route::apiResources([
+            'roles' => RoleController::class
+        ]);
+        Route::apiResource('permissions', PermissionController::class)->only('index');
         Route::post('upload', [ImageUploadController::class, 'upload']);
         Route::get('export', [OrderController::class, 'export']);
         Route::get('chart', [DashboardController::class, 'chartOrder']);
-
-        Route::apiResource('users', [UserController::class]);
-        Route::apiResource('product', [ProductController::class]);
-        Route::apiResource('orders', [OrderController::class])->only('index', 'show');
-        Route::apiResource('roles', [RoleController::class]);
-        Route::apiResource('permissions', [PermissionController::class])->only('index');
     }
 );

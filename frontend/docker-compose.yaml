@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  react-admin:
+    build:
+      context: ./react-admin
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - 3100:3000
+    command: 'yarn dev'
+
+  react-influencer:
+    build:
+      context: ./react-influencer
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - 3110:3000
+    command: 'yarn dev'
+
+  next-checkout:
+    build:
+      context: ./next-checkout
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - 3120:3000
+    command: 'yarn dev'

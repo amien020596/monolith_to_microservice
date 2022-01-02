@@ -47,7 +47,5 @@ services:
     container_name: redis
     image: redis:latest
     restart: always
-    networks:
-      - app
     ports:
       - 6380:6379
